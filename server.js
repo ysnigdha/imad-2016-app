@@ -7,7 +7,7 @@ app.use(morgan('combined'));
 
 
 var articles = {
-      articleone = {
+      'article-one': {
     title: 'Article one I snigdha',
     heading: 'Article One',
     date: 'sep 5,2016',
@@ -24,26 +24,39 @@ var articles = {
             This is the content for my first article.
             This is the content for my first article
     </p>`
-};
-      articletwo ={
+},
+      'article-two': {
           title: 'Article two I snigdha',
     heading: 'Article Two',
-    date: 'sep 5,2016',
+    date: 'sep 15,2016',
     content: `   
     <p>
-            This is the content for my first article.
-            This is the content for my first article.
-            This is the content for my first article.
-            This is the content for my first article
+            This is the content for my second article.
+            This is the content for my second article.
+            This is the content for my second article
     </p> 
     <p>
-            This is the content for my first article.
-            This is the content for my first article.
-            This is the content for my first article.
-            This is the content for my first article
-    </p>`};
-      articlethree ={};
-
+            This is the content for my second article.
+            This is the content for my second article.
+            This is the content for my secon article.
+    </p>`
+          
+      },
+      'article-three' :{       
+          title: 'Article three I snigdha',
+    heading: 'Article three',
+    date: 'sep 10,2016',
+    content: `   
+    <p>
+            This is the content for my third article.
+            This is the content for my third article.
+            This is the content for my third article
+    </p> 
+    <p>
+            This is the content for my third article.
+    </p>`
+   }
+};
 function createTemplate (data) {
     var title=data.title;
     var date=data.date;
@@ -84,19 +97,12 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
-app.get('/article-one',function(req, res) 
+app.get('/:articleName',function(req, res) 
 {
- res.send(createTemplate(articleone)); 
-});
-
-app.get('/article-two',function(req, res) 
-{
-  res.sendFile(path.join(__dirname, 'ui', 'article-two.html'));  
-});
-
-app.get('/article-three',function(req, res) 
-{
-  res.sendFile(path.join(__dirname, 'ui', 'article-three.html')); 
+    //aticleName=article-one
+    //articles[articleName]= content object for article-one
+    var articleName= req.params.articleName;
+ res.send(createTemplate(articles[articleName])); 
 });
 
 app.get('/ui/style.css', function (req, res) {

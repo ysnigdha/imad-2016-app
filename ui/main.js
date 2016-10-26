@@ -101,6 +101,18 @@ app.get('/counter',function(req,res) {
    counter=counter+1;
    res.send(counter.toString());
 });
+var names=[];
+app.get('/submit-name',function(req,res) {//url:/submit-name?name=hhhhh
+    //get te name from request
+
+    var name=req.query.name;
+    names.push(name);
+    //json stands for java script object notataion
+    
+    res.send(JSON.stringify(names));//1000
+    
+});
+
 app.get('/:articleName',function(req, res) 
 {
     //aticleName=article-one

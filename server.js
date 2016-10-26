@@ -128,7 +128,7 @@ app.get('/submit-name/:name',function(req,res) {
     names.push(name);
     //json stands for java script object notataion
     
-    res.send(JSON.stringifynames);//1000
+    res.send(JSON.stringify(names));//1000
     
 });
 

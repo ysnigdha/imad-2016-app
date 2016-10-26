@@ -20,7 +20,8 @@ request.open('GET','http://ysnigdha.imad.hasura-app.io/counter',true);
 request.send(null);
 };
 //submit name
-
+var nameInput = document.getElementById('name');
+var name = nameInput.value;
 var submit=document.getElementById('submit_btn');
 submit.onclick = function() {
         //creating a request object

@@ -18,6 +18,6 @@ button.onclick = function ()
    //not yet done 
     };
     //make the request
-    request.open('GET','https://github.com/ysnigdha/imad-2016-app/counter',true);
+    request.open('GET','http://ysnigdha.imad.hasura-app.io/counter',true);
     request.send(null);
    };

@@ -20,14 +20,12 @@ request.open('GET','http://ysnigdha.imad.hasura-app.io/counter',true);
 request.send(null);
 };
 //submit name
-var nameInput = document.getElementById('name');
-var name = nameInput.value;
 var submit=document.getElementById('submit_btn');
 submit.onclick = function() {
         //creating a request object
     var request=new XMLHttpRequest();
     //capture the response and store  it in a variable
-    request.onreadystatechangec=function() {
+    request.onreadystatechange = function() {
         if(request.readyState === XMLHttpRequest.DONE) {
             //take some action
             if(request.status === 200) {
@@ -48,6 +46,6 @@ submit.onclick = function() {
 //make the request
 var nameInput = document.getElementById('name');
 var name = nameInput.value;
-request.open('GET','http://ysnigdha.imad.hasura-app.io/submit-name?name='+name,true);
+request.open('GET','http://ysnigdha.imad.hasura-app.io/submit-name?name=' +name, true);
 request.send(null);
 };

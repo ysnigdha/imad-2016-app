@@ -104,6 +104,8 @@ pool.query('SELECT * FROM "user" WHERE username =  $1,',  [username] , function(
           if(hashedPassword === dbString){
           
       res.send('credentials correct!');
+      //set a session
+      
           }else {
               res.send(403).send('username/password is invalid');
           }

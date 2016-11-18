@@ -1,6 +1,6 @@
 //submit name
 var submit=document.getElementById('submit_btn');
-submit.onclick = function() {
+submit.onClick = function() {
         //creating a request object
     var request=new XMLHttpRequest();
     //capture the response and store  it in a variable

@@ -3,7 +3,8 @@ var morgan = require('morgan');
 var path = require('path');
 var Pool = require('pg').Pool;
 var crypto = require('crypto');
-var bodyParser=require('body-parser');
+var bodyParser = require('body-parser');
+var session = require('express-sesion'); 
 
 var config = {
     user: 'ysnigdha',
@@ -15,6 +16,10 @@ var config = {
 var app = express();
 app.use(morgan('combined'));
 app.use(bodyParser.json());
+app.use(session({
+    secret:'somesecretvalue',
+    cookie: {maxAge: 1000 * 60 * 60 * 24 *30}
+}));
 
 
 function createTemplate (data) {
@@ -101,9 +106,12 @@ pool.query('SELECT * FROM "user" WHERE username =  $1',  [username] , function(e
           var salt = dbString.split('$')[2];
           var hashedPassword = hash(password,salt);
           if(hashedPassword === dbString){
+      
+      //set the session
+      req.session.auth = {userId: result.rows[0].id};
           
       res.send('credentials correct!');
-      //set a session
+      
       
           }else {
               res.send(403).send('username/password is invalid');
@@ -112,8 +120,26 @@ pool.query('SELECT * FROM "user" WHERE username =  $1',  [username] , function(e
   }
 });
 });
+
+app.get('/check-login',function(req, res){
+
+if(req.session && req.session.auth && req.session.auth.userId){
+res.send('you are logged in' +req.session.auth.userId.toString());
+}else {
+    res.send('you are not logged in');
+}
+});
+
+app.get('/logout',function(req,res){
+    delete req.session.auth;
+    res.send('you are logged out');
+    
+});
+
+
+
 var pool = new Pool(config);
-app.get('/test-db',function(req,res){
+app.get('/test-db',function(req, res){
 //select request 
 //return a response
 pool.query('SELECT * FROM test',function(err,result) {
